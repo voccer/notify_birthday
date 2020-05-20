@@ -73,8 +73,8 @@ else:
             f.write('no thing')
 
 
-# import time
-# time.sleep(400)
+import time
+time.sleep(400)
 
 
 try:
