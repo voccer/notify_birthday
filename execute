@@ -12,31 +12,25 @@ DIR_PATH = '/usr/games/notify_birthday'
 ## remove file exist
 try:
     os.remove(os.path.join(DIR_PATH, 'index.html'))
+    os.remove(os.path.join(DIR_PATH, 'result'))
 except:
     pass
 
 
 info = []
 def set_info():
-    
-    # try:
-    #     r = requests.get('https://docs.google.com/document/u/4/export?format=txt&id=1MaetdIy3yDCVHEzmD87SGyHquNavWJo3k-RVU7tYE6Q&token=AC4w5Vg4qq7bqDhwXOwmXKAyzpZr7afLzg%3A1586228079190&includes_info_params=true')
-    #     b = r.text
-    #     with open(os.path.join(DIR_PATH,'birthday'), 'w') as f:
-    #         f.write(b)
-    # except Exception as e:
-    #     print(e)
-
     with open(os.path.join(DIR_PATH,'birthday'), 'r') as f:
         p = f.read()
         p = p.split('\n')
 
+    
     solar_today = datetime.date.today()
 
     lunar_today = Converter.Solar2Lunar(Solar(solar_today.year, solar_today.month, solar_today.day))
 
-
     for i in p:
+        if i == '':
+            continue
         name_birthday = i.split(':')[0]
         solar_birthday = i.split(':')[1].replace(' ', '')
         solar_day = int(solar_birthday.split('/')[0])
@@ -56,6 +50,9 @@ def set_info():
 set_info()
 
 if len(info) > 0:
+    with open(os.path.join(DIR_PATH,'result'), 'w') as f:
+        for p in info:
+            f.write(p[1])
     with open(os.path.join(DIR_PATH, 'index.html'), 'w') as index:
         with open(os.path.join(DIR_PATH, 'header.html'), 'r') as header:
             for l in header:
@@ -70,13 +67,18 @@ if len(info) > 0:
 
     subprocess.run('node ' + os.path.join(DIR_PATH, 'script.js'), shell=True)
 
+else:
+    with open(os.path.join(DIR_PATH, 'result'), 'w') as f:
+        for p in info:
+            f.write('no thing')
 
-import time
-time.sleep(400)
+
+# import time
+# time.sleep(400)
 
 
 try:
-    r = requests.get('https://docs.google.com/document/u/4/export?format=txt&id=1MaetdIy3yDCVHEzmD87SGyHquNavWJo3k-RVU7tYE6Q&token=AC4w5Vg4qq7bqDhwXOwmXKAyzpZr7afLzg%3A1586228079190&includes_info_params=true')
+    r = requests.get('https://docs.google.com/document/u/0/export?format=txt&id=1b2aQMfZvhLhqs5bnGrdNZUnOSmCGsuNZeSH8Qk6ndrg&token=AC4w5VjlljBzAvNU8CtCSnvvFwe52p-2-w%3A1589941528767&ouid=102939292131381354747&includes_info_params=true&inspectorResult=%7B%22pc%22%3A1%2C%22lplc%22%3A20%7D')
     b = r.text
     with open(os.path.join(DIR_PATH,'birthday'), 'w') as f:
             f.write(b)
