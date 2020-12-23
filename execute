@@ -85,7 +85,7 @@ def print_result(info):
                     index.write(l)
 
        #subprocess.run('node ' + os.path.join(DIR_PATH, 'script.js'), shell=True)
-        wb.open(os.path.join(DIR_PATH, 'index.html'), new=0, autoraise=True)
+        wb.get('google-chrome').open(os.path.join(DIR_PATH, 'index.html'), new=0, autoraise=True)
     else:
         with open(os.path.join(DIR_PATH, 'result'), 'w') as f:
             f.write('no thing')
