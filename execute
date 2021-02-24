@@ -9,12 +9,12 @@ import os
 import time
 import webbrowser as wb
 
+DIR_PATH_TEMPLATES = '/usr/games/notify_birthday/templates'
 DIR_PATH = '/usr/games/notify_birthday'
-
 ## remove file exist
 def remove_exist_file():
     try:
-        os.remove(os.path.join(DIR_PATH, 'index.html'))
+        os.remove(os.path.join(DIR_PATH_TEMPLATES, 'index.html'))
         os.remove(os.path.join(DIR_PATH, 'result'))
     except:
         pass
@@ -72,20 +72,20 @@ def print_result(info):
             f.write('has:\n')
             for p in info:
                 f.write(p[1] + '\n')
-        with open(os.path.join(DIR_PATH, 'index.html'), 'w') as index:
-            with open(os.path.join(DIR_PATH, 'header.html'), 'r') as header:
+        with open(os.path.join(DIR_PATH_TEMPLATES, 'index.html'), 'w') as index:
+            with open(os.path.join(DIR_PATH_TEMPLATES, 'header.html'), 'r') as header:
                 for l in header:
                     index.write(l)
 
             for p in info:
                 index.write('Today is {} birthday, {} age, {}<br>'.format(p[1].replace('\ufeff', ''), p[0], p[2]))
 
-            with open(os.path.join(DIR_PATH, 'footer.html'), 'r') as footer:
+            with open(os.path.join(DIR_PATH_TEMPLATES, 'footer.html'), 'r') as footer:
                 for l in footer:
                     index.write(l)
 
        #subprocess.run('node ' + os.path.join(DIR_PATH, 'script.js'), shell=True)
-        wb.get('google-chrome').open(os.path.join(DIR_PATH, 'index.html'), new=0, autoraise=True)
+        wb.get('google-chrome').open(os.path.join(DIR_PATH_TEMPLATES, 'index.html'), new=0, autoraise=True)
     else:
         with open(os.path.join(DIR_PATH, 'result'), 'w') as f:
             f.write('no thing')
